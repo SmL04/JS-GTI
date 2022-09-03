@@ -1,58 +1,47 @@
-let i = 0;
-var content;
-var obj;
-var itens;
-var inputResp = document.querySelectorAll('input');
+var content; 
+var obj; 
+var inputResp = document.getElementsByTagName("input"); 
+var main = -1; 
+ 
 
-window.onload = function conecta() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onload = function (e) {
-    if (xhttp.readyState === 4 && xhttp.status === 200) {
-      content = xhttp.responseText;
-    } else {
-      var err0 = xhttp.statusText;
+var requestURL = 'https://quiz-trainee.herokuapp.com/questions'; 
+var request = new XMLHttpRequest(); 
+request.open('GET', requestURL); 
+request.send(); 
+request.onreadystatechange = function(){ 
+    if(request.readyState === 4){ 
+        if(request.status === 200) 
+        obj = JSON.parse(request.responseText);     
+    }; 
+}; 
+ 
+    //Inicia o Quiz 
+    function mostrarQuestao() { 
+        document.getElementById("resultado").innerHTML = ""; 
+        document.getElementById("listaRespostas").style.display = "block"; 
+      
+        if(main === -1 || inputResp[0].checked != false || inputResp[1].checked != false || inputResp[2].checked != false || inputResp[3].checked != false){
+            document.getElementById("confirmar").textContent = "Próxima pergunta"; 
+            main++; 
+            proxQuestao(); 
+        };
+    };
+ 
+    //questoes a partir da segunda    
+    function proxQuestao(){
+      let i = 0;
+      document.getElementById('titulo').textContent = obj[i].title;  
+      itens = document.querySelectorAll('span');  
+      itens.forEach((item, index) => {  
+        item.textContent =  
+          obj[i].options[index].answer; 
+      });  
+      i++;
+    }; 
+ 
+     
+    function finalizarQuiz() { 
+        document.getElementById("listainputResps").style.display = "none"; 
+        document.getElementById("resultado").innerHTML = "Sua pontuação: " ; 
+         
     }
-  };
-  xhttp.open('GET', 'https://quiz-trainee.herokuapp.com/questions', true);
-  xhttp.send();
-};
-
-function inicializa() {
-  obj = JSON.parse(content);
-}
-
-function mostrarQuestao() {
-  inicializa();
-  document.getElementById('listaRespostas').style.display = 'block';
-  document.getElementById('confirmar').textContent = 'Próxima pergunta';
-  perguntas();
-  validResposta();
-}
-
-//colocando as perguntas na tela, ta feito pae
-function perguntas() {
-  inicializa();
-  document.getElementById('titulo').textContent = obj[i].title;
-  itens = document.querySelectorAll('span');
-  itens.forEach((item, index) => {
-    item.textContent =
-      obj[i].options[index].answer + ' ' + obj[i].options[index].value;
-    console.log(obj[i].options[index].value);
-  });
-  i++;
-}
-
-function handleClick({ target }) {
-  if (target.nextElementSibling.innerText.endsWith('3')) {
-    console.log('Correta');
-  } else {
-    console.log('Errada');
-  }
-}
-
-function validResposta() {
-  inicializa();
-  inputResp.forEach((input) => {
-    input.addEventListener('click', handleClick);
-  });
-}
