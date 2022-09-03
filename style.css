@@ -6,7 +6,7 @@ body {
     font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
     margin: 2em;
     font-size: 18px;
-    background-image: url("https://i.ytimg.com/vi/DgtXWjd3H5s/maxresdefault.jpg");
+    background-image: url("./images/fundoquiz.jpg");
     background-size: cover;
     background-color: rgba(0,0,0, 0.5);
     background-blend-mode: multiply;
@@ -20,14 +20,19 @@ body {
   
   .conteudo {
     padding-top: 20px;
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
     width: 50%;
     margin: 0 auto;
     margin-top: 25vh;
     padding-bottom: 20px;
-    
+    /* background-image: url('./images/teste.png'); */
   
+  }
+  .texto{
+    color:#53BFC4;
+    text-shadow: 2px 2px 5px #050939;
+    border: 10;
   }
   
   ul {
@@ -46,14 +51,22 @@ body {
   
   button {
     border: 0;
-    background-color: rgb(200,255,225);
     padding: 10px 20px 10px;
     font-size: 18pt;
     border-radius: 10px;
+    transition-duration: 0.5s;
+    color: #59D7DC;
+    font-weight: 400;
+    font-size: 1em;
+    transition: all ease-in 0.2s;
+    border-radius: 50px;
   }
   
-  button:hover {
-    background-color: rgb(100,255,125);
+  button:hover, button:focus {
+    background: #53BFC4;
+    color: #FFF;
+    border-color: #59D7DC;
+    box-shadow: none;
   }
 
   
