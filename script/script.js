@@ -1,6 +1,6 @@
 /* import{ getDatas } from "./datas.js"
-let obj = await getDatas(); */ //Tinha feito uma requisição por export mas deu conflito no arquivo html.
-let obj; // Então deixei comentado aqui e com o código ainda pra estudos futuros.
+let obj = await getDatas(); */       //Tinha feito uma requisição por export mas deu conflito no arquivo html.
+let obj;                            // Então deixei comentado aqui e com o código ainda pra estudos futuros.
 
 //requisição da API
 var requestURL = "https://quiz-trainee.herokuapp.com/questions";
@@ -23,17 +23,11 @@ function mostrarQuestao() {
   document.getElementById("resultado").innerHTML = "";
   document.getElementById("listaRespostas").style.display = "block";
 
-  if (
-    main === -1 ||
-    inputResp[0].checked != false ||
-    inputResp[1].checked != false ||
-    inputResp[2].checked != false ||
-    inputResp[3].checked != false
-  ) {
+  if (main === -1 || inputResp[0].checked != false || inputResp[1].checked != false || inputResp[2].checked != false ||
+    inputResp[3].checked != false) {
     if (main != -1) {
       for (var i = 0; i < obj[main].options.length; i++) {
-        contador =
-          contador + inputResp[i].checked * obj[main]["options"][i]["value"];
+        contador = contador + inputResp[i].checked * obj[main]["options"][i]["value"];
       }
     }
     document.getElementById("confirmar").textContent = "Próxima pergunta";
@@ -80,7 +74,6 @@ function proxQuestao() {
 function finalizarQuiz() {
   document.getElementById("confirmar").innerHTML = "Refazer quiz";
   document.getElementById("listaRespostas").style.display = "none";
-  document.getElementById("resultado").innerHTML =
-    "Sua pontuação: " + contador + " pontos em 15";
+  document.getElementById("resultado").innerHTML = "Sua pontuação: " + contador + " pontos em 15";
   btn.addEventListener("click", reiniciar(), false);
 }
