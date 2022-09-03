@@ -1,5 +1,19 @@
-import{getDatas} from "./datas.js"
-let obj = await getDatas(); 
+/* import{getDatas} from "./datas.js"
+let obj = await getDatas(); */      //Tinha feito uma requisição por export mas deu conflito no arquivo html. 
+let obj;                            // Então deixei comentado aqui e com o código ainda pra estudos futuros.
+
+
+//requisição da API
+var requestURL = 'https://quiz-trainee.herokuapp.com/questions';  
+var request = new XMLHttpRequest();  
+request.open('GET', requestURL);  
+request.send();  
+request.onreadystatechange = function(){  
+    if(request.readyState === 4){  
+        if(request.status === 200)  
+        obj = JSON.parse(request.responseText);      
+    }   
+};
 
 let inputResp = document.getElementsByTagName("input"); 
 let main = -1;
@@ -7,9 +21,6 @@ let btn = document.getElementById("confirmar")
 let contador = 0;
 
 
-
-
-/* btn.addEventListener('click', () => {mostrarQuestao()}); */
 
 
 
@@ -30,8 +41,9 @@ function mostrarQuestao() {
   };
     };
 
-btn.addEventListener('click', mostrarQuestao, false);
+btn.addEventListener('click', mostrarQuestao, false); //linka a função de iniciar o quiz com o botão
 
+    //Função para reiniciar o quiz
     function reiniciar(){
       main = -1;
       contador = 0;
@@ -67,7 +79,7 @@ btn.addEventListener('click', mostrarQuestao, false);
     }  
     }; 
  
-     
+     //encerrar o quiz e mostrar a pontuação
     function finalizarQuiz() {
         document.getElementById("confirmar").innerHTML = "Refazer quiz";
         document.getElementById("listaRespostas").style.display = "none"; 
