@@ -1,20 +1,18 @@
-var content; 
-var obj; 
-var inputResp = document.getElementsByTagName("input"); 
-var main = -1; 
- 
+import{getDatas} from "./datas.js"
+let obj = await getDatas(); 
 
-var requestURL = 'https://quiz-trainee.herokuapp.com/questions'; 
-var request = new XMLHttpRequest(); 
-request.open('GET', requestURL); 
-request.send(); 
-request.onreadystatechange = function(){ 
-    if(request.readyState === 4){ 
-        if(request.status === 200) 
-        obj = JSON.parse(request.responseText);     
-    }; 
-}; 
- 
+let inputResp = document.getElementsByTagName("input"); 
+let main = -1;
+let itens;
+
+
+let btn = document.getElementById("confirmar").addEventListener('click', mostrarQuestao, false);
+
+
+/* btn.addEventListener('click', () => {mostrarQuestao()}); */
+
+    
+
     //Inicia o Quiz 
     function mostrarQuestao() { 
         document.getElementById("resultado").innerHTML = ""; 
@@ -30,11 +28,16 @@ request.onreadystatechange = function(){
     //questoes a partir da segunda    
     function proxQuestao(){
       let i = 0;
+      let input = document.querySelectorAll('input');
+
       document.getElementById('titulo').textContent = obj[i].title;  
       itens = document.querySelectorAll('span');  
       itens.forEach((item, index) => {  
         item.textContent =  
-          obj[i].options[index].answer; 
+          obj[i].options[index].answer;
+          if(input.checked){
+
+          } 
       });  
       i++;
     }; 
